@@ -13,11 +13,28 @@
 
 # misc
 .DS_Store
+.env.backup
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment variables
+.env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 
+# Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+lerna-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock

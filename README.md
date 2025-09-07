@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# Cent Store - E-commerce Website
+
+A modern e-commerce website built with React.js and Supabase, inspired by fashion retail platforms.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
