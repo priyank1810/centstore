@@ -96,12 +96,6 @@ const AdminLogin: React.FC = () => {
               {loading ? 'Logging in...' : 'Login'}
             </button>
           </form>
-
-          <div className="login-info">
-            <p><strong>Demo Credentials:</strong></p>
-            <p>Username: <code>admin</code></p>
-            <p>Password: <code>admin123</code></p>
-          </div>
         </div>
       </div>
     </div>

@@ -356,6 +356,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onClose, onSave }) =
                   <option value="Kids">Kids</option>
                   <option value="Bags">Bags</option>
                   <option value="Accessories">Accessories</option>
+                  <option value="Footwear">Footwear</option>
                 </select>
                 {errors.category && <span className="error-message">{errors.category}</span>}
               </div>

@@ -11,6 +11,7 @@ import Men from './pages/Men';
 import Kids from './pages/Kids';
 import Bags from './pages/Bags';
 import Accessories from './pages/Accessories';
+import Footwear from './pages/Footwear';
 import SearchResults from './pages/SearchResults';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
@@ -46,6 +47,7 @@ function App() {
                       <Route path="/kids" element={<Kids />} />
                       <Route path="/bags" element={<Bags />} />
                       <Route path="/accessories" element={<Accessories />} />
+                      <Route path="/footwear" element={<Footwear />} />
                       <Route path="/search" element={<SearchResults />} />
                     </Routes>
                   </>

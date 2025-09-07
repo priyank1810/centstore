@@ -28,6 +28,11 @@ const CategoryShowcase: React.FC = () => {
       name: 'Accessories',
       link: '/accessories',
       image: '/category-images/category-accessories.jpg'
+    },
+    {
+      name: 'Footwear',
+      link: '/footwear',
+      image: '/category-images/category-footwear.jpg'
     }
   ];
 

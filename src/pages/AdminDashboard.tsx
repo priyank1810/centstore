@@ -29,7 +29,7 @@ const AdminDashboard: React.FC = () => {
   const [viewingProduct, setViewingProduct] = useState<Product | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
 
-  const categories = ['All', 'Women', 'Men', 'Kids', 'Bags', 'Accessories'];
+  const categories = ['All', 'Women', 'Men', 'Kids', 'Bags', 'Accessories', 'Footwear'];
 
   const filteredProducts = selectedCategory === 'All' 
     ? products 
