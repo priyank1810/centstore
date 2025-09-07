@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import './Carousel.css';
 
@@ -21,7 +20,7 @@ const Carousel: React.FC = () => {
   const slides: CarouselSlide[] = [
     {
       id: 1,
-      image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+      image: '/carousel-images/carousel-women-fashion.jpg',
       title: 'NEW FALL STYLES',
       subtitle: 'THAT MEANS BUSINESS',
       description: 'Discover the latest collection of premium fashion and accessories',
@@ -31,7 +30,7 @@ const Carousel: React.FC = () => {
     },
     {
       id: 2,
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+      image: '/carousel-images/carousel-men-fashion.jpg',
       title: 'MEN\'S ESSENTIALS',
       subtitle: 'REDEFINE YOUR STYLE',
       description: 'Elevate your wardrobe with our premium men\'s collection',
@@ -41,22 +40,32 @@ const Carousel: React.FC = () => {
     },
     {
       id: 3,
-      image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
-      title: 'HANDBAG COLLECTION',
-      subtitle: 'LUXURY REDEFINED',
-      description: 'Statement pieces that complete your perfect look',
+      image: '/carousel-images/carousel-luxury-handbags.jpg',
+      title: 'LUXURY HANDBAGS',
+      subtitle: 'STATEMENT PIECES',
+      description: 'Exquisite handbags that complete your perfect look',
       ctaText: 'Shop Bags',
       ctaLink: '/bags',
       textPosition: 'center'
     },
     {
       id: 4,
-      image: 'https://images.unsplash.com/photo-1503944583220-79d8926ad5e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
-      title: 'KIDS FASHION',
-      subtitle: 'STYLE FOR THE LITTLE ONES',
-      description: 'Fun, comfortable, and stylish clothing for children',
+      image: '/carousel-images/carousel-kids-fashion.jpg',
+      title: 'KIDS COLLECTION',
+      subtitle: 'STYLE FOR LITTLE ONES',
+      description: 'Comfortable, stylish, and playful clothing for children',
       ctaText: 'Shop Kids',
       ctaLink: '/kids',
+      textPosition: 'left'
+    },
+    {
+      id: 5,
+      image: '/carousel-images/carousel-fashion-accessories.jpg',
+      title: 'FASHION ACCESSORIES',
+      subtitle: 'COMPLETE YOUR STYLE',
+      description: 'Essential accessories to elevate and personalize your look',
+      ctaText: 'Shop Accessories',
+      ctaLink: '/accessories',
       textPosition: 'left'
     }
   ];
@@ -65,16 +74,16 @@ const Carousel: React.FC = () => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
   }, [slides.length]);
 
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-  };
-
   const goToSlide = (index: number) => {
     setCurrentSlide(index);
   };
 
-  const togglePlayPause = () => {
-    setIsPlaying(!isPlaying);
+  const handleMouseEnter = () => {
+    setIsPlaying(false);
+  };
+
+  const handleMouseLeave = () => {
+    setIsPlaying(true);
   };
 
   useEffect(() => {
@@ -85,7 +94,11 @@ const Carousel: React.FC = () => {
   }, [isPlaying, nextSlide]);
 
   return (
-    <div className="carousel">
+    <div 
+      className="carousel"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <div className="carousel-container">
         {slides.map((slide, index) => (
           <div
@@ -110,14 +123,6 @@ const Carousel: React.FC = () => {
         ))}
       </div>
 
-      {/* Navigation Arrows */}
-      <button className="carousel-nav prev" onClick={prevSlide}>
-        <ChevronLeft size={24} />
-      </button>
-      <button className="carousel-nav next" onClick={nextSlide}>
-        <ChevronRight size={24} />
-      </button>
-
       {/* Dots Indicator */}
       <div className="carousel-dots">
         {slides.map((_, index) => (
@@ -128,11 +133,6 @@ const Carousel: React.FC = () => {
           />
         ))}
       </div>
-
-      {/* Play/Pause Button */}
-      <button className="play-pause-btn" onClick={togglePlayPause}>
-        {isPlaying ? 'Pause slideshow' : 'Play slideshow'}
-      </button>
     </div>
   );
 };

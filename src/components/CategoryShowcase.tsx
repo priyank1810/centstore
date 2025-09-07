@@ -7,27 +7,27 @@ const CategoryShowcase: React.FC = () => {
     {
       name: 'Women',
       link: '/women',
-      image: 'https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'
+      image: '/category-images/category-women.jpg'
     },
     {
       name: 'Men',
       link: '/men',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'
+      image: '/category-images/category-men.jpg'
     },
     {
       name: 'Kids',
       link: '/kids',
-      image: 'https://images.unsplash.com/photo-1503944583220-79d8926ad5e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'
+      image: '/category-images/category-kids.jpg'
     },
     {
       name: 'Bags',
       link: '/bags',
-      image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'
+      image: '/category-images/category-bags.jpg'
     },
     {
       name: 'Accessories',
       link: '/accessories',
-      image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'
+      image: '/category-images/category-accessories.jpg'
     }
   ];
 
