@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Search, Menu, X } from 'lucide-react';
+import { Search, Menu, X, MapPin, MessageCircle } from 'lucide-react';
 import { useSearch } from '../contexts/SearchContext';
 import './Header.css';
 
@@ -69,6 +69,22 @@ const Header: React.FC = () => {
                 title={isSearchOpen ? "Close search" : "Search products"}
               >
                 <Search size={24} />
+              </button>
+              <button 
+                className="action-btn" 
+                onClick={() => navigate('/contact')}
+                aria-label="Contact us"
+                title="Contact us"
+              >
+                <MessageCircle size={24} />
+              </button>
+              <button 
+                className="action-btn" 
+                onClick={() => navigate('/locations')}
+                aria-label="View locations"
+                title="View locations"
+              >
+                <MapPin size={28} />
               </button>
             </div>
           </div>

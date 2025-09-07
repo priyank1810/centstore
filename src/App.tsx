@@ -4,6 +4,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import { ProductsProvider } from './contexts/ProductsContext';
 import { SearchProvider } from './contexts/SearchContext';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import ProtectedRoute from './components/ProtectedRoute';
 import Home from './pages/Home';
 import Women from './pages/Women';
@@ -12,6 +13,8 @@ import Kids from './pages/Kids';
 import Bags from './pages/Bags';
 import Accessories from './pages/Accessories';
 import Footwear from './pages/Footwear';
+import Locations from './pages/Locations';
+import ContactUs from './pages/ContactUs';
 import SearchResults from './pages/SearchResults';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
@@ -48,8 +51,11 @@ function App() {
                       <Route path="/bags" element={<Bags />} />
                       <Route path="/accessories" element={<Accessories />} />
                       <Route path="/footwear" element={<Footwear />} />
+                      <Route path="/locations" element={<Locations />} />
+                      <Route path="/contact" element={<ContactUs />} />
                       <Route path="/search" element={<SearchResults />} />
                     </Routes>
+                    <Footer />
                   </>
                 } />
               </Routes>
