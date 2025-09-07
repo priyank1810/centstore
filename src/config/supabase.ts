@@ -29,6 +29,7 @@ export interface Database {
           description: string | null;
           images: string[] | null;
           in_stock: boolean;
+          featured: boolean;
           created_at: string;
           updated_at: string;
         };
@@ -40,6 +41,7 @@ export interface Database {
           description?: string | null;
           images?: string[] | null;
           in_stock?: boolean;
+          featured?: boolean;
           created_at?: string;
           updated_at?: string;
         };
@@ -51,6 +53,7 @@ export interface Database {
           description?: string | null;
           images?: string[] | null;
           in_stock?: boolean;
+          featured?: boolean;
           created_at?: string;
           updated_at?: string;
         };

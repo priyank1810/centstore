@@ -25,7 +25,8 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onClose, onSave }) =
     name: '',
     category: 'Women',
     price: '',
-    description: ''
+    description: '',
+    featured: false
   });
 
   const [images, setImages] = useState<ImageData[]>([]);
@@ -43,7 +44,8 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onClose, onSave }) =
         name: product.name,
         category: product.category,
         price: product.price.toString(),
-        description: product.description || ''
+        description: product.description || '',
+        featured: product.featured || false
       });
 
       // Convert existing image URLs to ImageData format
@@ -83,8 +85,14 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onClose, onSave }) =
   }, [images]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    const { name, value, type } = e.target;
+    const checked = (e.target as HTMLInputElement).checked;
+    
+    setFormData(prev => ({ 
+      ...prev, 
+      [name]: type === 'checkbox' ? checked : value 
+    }));
+    
     // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
@@ -268,6 +276,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onClose, onSave }) =
         category: formData.category,
         price,
         description: formData.description.trim(),
+        featured: formData.featured,
         images: images
           .filter(img => img.downloadURL || img.uploadProgress.downloadURL)
           .map(img => img.downloadURL || img.uploadProgress.downloadURL || '')
@@ -367,6 +376,20 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onClose, onSave }) =
                   className={errors.price ? 'error' : ''}
                 />
                 {errors.price && <span className="error-message">{errors.price}</span>}
+              </div>
+
+              <div className="form-group">
+                <label className="checkbox-label">
+                  <input
+                    type="checkbox"
+                    name="featured"
+                    checked={formData.featured}
+                    onChange={handleInputChange}
+                    className="checkbox-input"
+                  />
+                  <span className="checkbox-text">Featured Product</span>
+                </label>
+                <p className="field-description">Mark this product as featured to highlight it on the homepage</p>
               </div>
             </div>
 

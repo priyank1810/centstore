@@ -8,6 +8,7 @@ export interface Product {
   category: string;
   description?: string;
   inStock?: boolean;
+  featured?: boolean;
   createdAt?: string;
   updatedAt?: string;
 }
@@ -21,6 +22,7 @@ const mapRowToProduct = (row: ProductRow): Product => ({
   category: row.category,
   description: row.description || undefined,
   inStock: row.in_stock,
+  featured: row.featured,
   createdAt: row.created_at,
   updatedAt: row.updated_at,
 });
@@ -33,6 +35,7 @@ const mapProductToInsert = (product: Omit<Product, 'id' | 'createdAt' | 'updated
   category: product.category,
   description: product.description || null,
   in_stock: product.inStock ?? true,
+  featured: product.featured ?? false,
 });
 
 // Convert Product interface to database update
@@ -43,6 +46,7 @@ const mapProductToUpdate = (product: Partial<Product>): ProductUpdate => ({
   ...(product.category && { category: product.category }),
   ...(product.description !== undefined && { description: product.description || null }),
   ...(product.inStock !== undefined && { in_stock: product.inStock }),
+  ...(product.featured !== undefined && { featured: product.featured }),
   updated_at: new Date().toISOString(),
 });
 

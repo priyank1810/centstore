@@ -137,7 +137,12 @@ export const ProductsProvider: React.FC<ProductsProviderProps> = ({ children }) 
   };
 
   const getFeaturedProducts = (): Product[] => {
-    // Return first 6 products as featured, or all if less than 6
+    // Return products marked as featured, fallback to first 6 if none are marked
+    const featuredProducts = products.filter(product => product.featured);
+    if (featuredProducts.length > 0) {
+      return featuredProducts.slice(0, 6);
+    }
+    // Fallback to first 6 products if no products are marked as featured
     return products.slice(0, 6);
   };
 

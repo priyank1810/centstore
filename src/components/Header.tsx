@@ -61,7 +61,12 @@ const Header: React.FC = () => {
             </nav>
 
             <div className="header-actions">
-              <button className="action-btn" onClick={toggleSearch}>
+              <button 
+                className="action-btn" 
+                onClick={toggleSearch}
+                aria-label={isSearchOpen ? "Close search" : "Open search"}
+                title={isSearchOpen ? "Close search" : "Search products"}
+              >
                 <Search size={24} />
               </button>
             </div>
