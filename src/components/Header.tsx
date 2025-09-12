@@ -13,6 +13,8 @@ const Header: React.FC = () => {
   const { performSearch } = useSearch();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const closeMenu = () => setIsMenuOpen(false); // New function to close the menu
+
   const toggleSearch = () => {
     setIsSearchOpen(!isSearchOpen);
     if (isSearchOpen) {
@@ -53,12 +55,12 @@ const Header: React.FC = () => {
             </Link>
 
             <nav className={`main-nav ${isMenuOpen ? 'nav-open' : ''}`}>
-              <Link to="/women" className="nav-link">Women</Link>
-              <Link to="/men" className="nav-link">Men</Link>
-              <Link to="/kids" className="nav-link">Kids</Link>
-              <Link to="/bags" className="nav-link">Bags</Link>
-              <Link to="/accessories" className="nav-link">Accessories</Link>
-              <Link to="/footwear" className="nav-link">Footwear</Link>
+              <Link to="/women" className="nav-link" onClick={closeMenu}>Women</Link>
+              <Link to="/men" className="nav-link" onClick={closeMenu}>Men</Link>
+              <Link to="/kids" className="nav-link" onClick={closeMenu}>Kids</Link>
+              <Link to="/bags" className="nav-link" onClick={closeMenu}>Bags</Link>
+              <Link to="/accessories" className="nav-link" onClick={closeMenu}>Accessories</Link>
+              <Link to="/footwear" className="nav-link" onClick={closeMenu}>Footwear</Link>
             </nav>
 
             <div className="header-actions">

@@ -18,6 +18,7 @@ import ContactUs from './pages/ContactUs';
 import SearchResults from './pages/SearchResults';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
+import ScrollToTop from './utils/ScrollToTop'; // Import ScrollToTop
 import './App.css';
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
       <ProductsProvider>
         <SearchProvider>
           <Router>
+            <ScrollToTop /> {/* Place ScrollToTop here */}
             <div className="App">
               <Routes>
                 {/* Admin Routes */}

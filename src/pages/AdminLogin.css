@@ -71,33 +71,38 @@
 }
 
 .input-group {
-  position: relative;
-  display: flex;
+  display: flex; /* Use flexbox */
   align-items: center;
+  gap: 10px; /* Space between icon and input */
+  border: 2px solid rgba(0, 0, 0, 0.1); /* Move border to group */
+  border-radius: 10px; /* Move border-radius to group */
+  padding: 15px; /* Apply padding to group */
+  background: rgba(0, 0, 0, 0.02); /* Apply background to group */
+  transition: all 0.3s ease; /* Apply transition to group */
 }
 
-.input-group svg {
-  position: absolute;
-  left: 15px;
-  color: #666;
-  z-index: 1;
-}
-
-.input-group input {
-  width: 100%;
-  padding: 15px 15px 15px 45px;
-  border: 2px solid rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  font-size: 16px;
-  transition: all 0.3s ease;
-  background: rgba(0, 0, 0, 0.02);
-}
-
-.input-group input:focus {
+.input-group:focus-within {
   outline: none;
   border-color: #667eea;
   background: white;
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.input-group svg {
+  position: static; /* Remove absolute positioning */
+  color: #666;
+  z-index: 1;
+  flex-shrink: 0; /* Prevent icon from shrinking */
+}
+
+.input-group input {
+  width: 100%;
+  padding: 0; /* Remove padding from input, applied to group */
+  border: none; /* Remove border from input, applied to group */
+  border-radius: 0; /* Remove border-radius from input */
+  font-size: 16px;
+  background: transparent; /* Make input background transparent */
+  flex-grow: 1; /* Allow input to take remaining space */
 }
 
 .input-group input::placeholder {
@@ -192,8 +197,12 @@
     font-size: 1.75rem;
   }
 
+  .input-group {
+    padding: 14px; /* Adjust padding for mobile group */
+    gap: 8px; /* Adjust gap for mobile */
+  }
+
   .input-group input {
-    padding: 14px 14px 14px 42px;
     font-size: 15px;
   }
 
