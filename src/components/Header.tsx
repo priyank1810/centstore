@@ -49,7 +49,7 @@ const Header: React.FC = () => {
             </button>
 
             <Link to="/" className="logo">
-              <h1>CentStore</h1>
+              <img src="/centstore-logo.png" alt="CentStore Logo" className="header-logo" />
             </Link>
 
             <nav className={`main-nav ${isMenuOpen ? 'nav-open' : ''}`}>

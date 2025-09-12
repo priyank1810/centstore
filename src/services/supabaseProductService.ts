@@ -4,6 +4,7 @@ export interface Product {
   id?: string;
   name: string;
   price: number;
+  market_price?: number | null; // Added market_price field
   images: string[];
   category: string;
   description?: string;
@@ -17,7 +18,8 @@ export interface Product {
 const mapRowToProduct = (row: ProductRow): Product => ({
   id: row.id,
   name: row.name,
-  price: row.price, // Use the single price column
+  price: row.price, 
+  market_price: row.market_price || null, // Map market_price
   images: row.images || [],
   category: row.category,
   description: row.description || undefined,
@@ -30,7 +32,8 @@ const mapRowToProduct = (row: ProductRow): Product => ({
 // Convert Product interface to database insert
 const mapProductToInsert = (product: Omit<Product, 'id' | 'createdAt' | 'updatedAt'>): ProductInsert => ({
   name: product.name,
-  price: product.price, // Use the single price column
+  price: product.price, 
+  market_price: product.market_price || null, // Map market_price
   images: product.images,
   category: product.category,
   description: product.description || null,
@@ -42,6 +45,7 @@ const mapProductToInsert = (product: Omit<Product, 'id' | 'createdAt' | 'updated
 const mapProductToUpdate = (product: Partial<Product>): ProductUpdate => ({
   ...(product.name && { name: product.name }),
   ...(product.price && { price: product.price }),
+  ...(product.market_price !== undefined && { market_price: product.market_price || null }), // Map market_price
   ...(product.images && { images: product.images }),
   ...(product.category && { category: product.category }),
   ...(product.description !== undefined && { description: product.description || null }),

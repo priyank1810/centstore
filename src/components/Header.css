@@ -83,7 +83,6 @@
 }
 
 .header-main {
-  padding: 20px 0;
   background: rgba(255, 255, 255, 0.98);
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
@@ -147,6 +146,17 @@
 
 .logo:hover {
   transform: scale(1.02);
+}
+
+/* New logo styling */
+.header-logo {
+  height: 125px; /* Adjusted height to make it bigger */
+  width: auto;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover .header-logo {
+  transform: scale(1.05);
 }
 
 .main-nav {
@@ -442,9 +452,12 @@
     gap: 20px;
   }
 
+  /* Original .logo h1 styles - commented out or removed */
+  /*
   .logo h1 {
     font-size: 30px;
   }
+  */
 }
 
 @media (max-width: 480px) {
@@ -460,10 +473,13 @@
     font-size: 12px;
   }
 
+  /* Original .logo h1 styles - commented out or removed */
+  /*
   .logo h1 {
     font-size: 26px;
     letter-spacing: 2px;
   }
+  */
 
   .header-actions {
     gap: 15px;

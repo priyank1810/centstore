@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { Product } from '../contexts/ProductsContext';
+import { Product } from '../services/supabaseProductService'; // Updated import path
 import './ProductCard.css';
 
 interface ProductCardProps {
@@ -91,6 +91,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClick }) =>
       <div className="product-info">
         <h3 className="product-name">{product.name}</h3>
         <div className="product-price">
+          {product.market_price && product.market_price > product.price && (
+            <span className="market-price-crossed">${product.market_price.toFixed(2)}</span>
+          )}
           <span className="price">${product.price.toFixed(2)}</span>
         </div>
       </div>

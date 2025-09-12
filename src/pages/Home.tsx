@@ -7,6 +7,7 @@ import './Home.css';
 const Home: React.FC = () => {
   return (
     <div className="home">
+      {/* <img src="/centstore-logo.png" alt="CentStore Logo" className="centstore-logo" /> Removed logo from here */}
       <Carousel />
       <CategoryShowcase />
       <FeaturedProducts />

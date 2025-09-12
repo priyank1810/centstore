@@ -185,6 +185,49 @@
   border-color: white;
 }
 
+/* Navigation Arrows */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
+  backdrop-filter: blur(5px);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 4;
+  opacity: 0; /* Hidden by default */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-arrow:hover {
+  background: rgba(255, 255, 255, 0.8);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-arrow.prev {
+  left: 20px;
+}
+
+.carousel-arrow.next {
+  right: 20px;
+}
+
+.carousel:hover .carousel-arrow {
+  opacity: 1; /* Show arrows on carousel hover */
+}
+
+.carousel-arrow svg {
+  color: #333; /* Dark arrow color */
+}
+
 /* Animations */
 @keyframes slideUp {
   from {

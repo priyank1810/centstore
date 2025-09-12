@@ -25,6 +25,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onClose, onSave }) =
     name: '',
     category: 'Women',
     price: '',
+    market_price: '', // Added market_price field
     description: '',
     featured: false
   });
@@ -44,6 +45,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onClose, onSave }) =
         name: product.name,
         category: product.category,
         price: product.price.toString(),
+        market_price: product.market_price ? product.market_price.toString() : '', // Initialize market_price
         description: product.description || '',
         featured: product.featured || false
       });
@@ -248,6 +250,14 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onClose, onSave }) =
       }
     }
 
+    // Validate market_price if provided
+    if (formData.market_price.trim()) {
+      const marketPrice = parseFloat(formData.market_price);
+      if (isNaN(marketPrice) || marketPrice <= 0) {
+        newErrors.market_price = 'Please enter a valid market price';
+      }
+    }
+
     if (!formData.description.trim()) {
       newErrors.description = 'Description is required';
     }
@@ -270,11 +280,13 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onClose, onSave }) =
 
     try {
       const price = parseFloat(formData.price);
+      const market_price = formData.market_price.trim() ? parseFloat(formData.market_price) : null; // Parse market_price
 
       const productData = {
         name: formData.name.trim(),
         category: formData.category,
         price,
+        market_price, // Include market_price
         description: formData.description.trim(),
         featured: formData.featured,
         images: images
@@ -379,19 +391,37 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onClose, onSave }) =
                 {errors.price && <span className="error-message">{errors.price}</span>}
               </div>
 
+              {/* New Market Price Field */}
               <div className="form-group">
-                <label className="checkbox-label">
-                  <input
-                    type="checkbox"
-                    name="featured"
-                    checked={formData.featured}
-                    onChange={handleInputChange}
-                    className="checkbox-input"
-                  />
-                  <span className="checkbox-text">Featured Product</span>
-                </label>
-                <p className="field-description">Mark this product as featured to highlight it on the homepage</p>
+                <label htmlFor="market_price">Market Price (Optional)</label>
+                <input
+                  type="number"
+                  id="market_price"
+                  name="market_price"
+                  value={formData.market_price}
+                  onChange={handleInputChange}
+                  placeholder="0.00"
+                  step="0.01"
+                  min="0"
+                  className={errors.market_price ? 'error' : ''}
+                />
+                {errors.market_price && <span className="error-message">{errors.market_price}</span>}
+                <p className="field-description">Original price, shown crossed out if higher than current price.</p>
               </div>
+            </div>
+
+            <div className="form-group">
+              <label className="checkbox-label">
+                <input
+                  type="checkbox"
+                  name="featured"
+                  checked={formData.featured}
+                  onChange={handleInputChange}
+                  className="checkbox-input"
+                />
+                <span className="checkbox-text">Featured Product</span>
+              </label>
+              <p className="field-description">Mark this product as featured to highlight it on the homepage</p>
             </div>
 
             <div className="form-group">

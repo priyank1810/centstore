@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
+import { ChevronLeft, ChevronRight } from 'lucide-react'; // Import ChevronLeft and ChevronRight
 import './Carousel.css';
 
 interface CarouselSlide {
@@ -74,6 +75,10 @@ const Carousel: React.FC = () => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
   }, [slides.length]);
 
+  const prevSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  }, [slides.length]);
+
   const goToSlide = (index: number) => {
     setCurrentSlide(index);
   };
@@ -122,6 +127,14 @@ const Carousel: React.FC = () => {
           </div>
         ))}
       </div>
+
+      {/* Navigation Arrows */}
+      <button className="carousel-arrow prev" onClick={prevSlide}>
+        <ChevronLeft size={30} />
+      </button>
+      <button className="carousel-arrow next" onClick={nextSlide}>
+        <ChevronRight size={30} />
+      </button>
 
       {/* Dots Indicator */}
       <div className="carousel-dots">

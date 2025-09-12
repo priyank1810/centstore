@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, ChevronLeft, ChevronRight, Heart } from 'lucide-react';
-import { Product } from '../contexts/ProductsContext';
+import { Product } from '../services/supabaseProductService'; // Updated import path
 import './ProductModal.css';
 
 interface ProductModalProps {
@@ -154,6 +154,9 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, isOpen, onClose })
 
             <div className="modal-price-section">
               <div className="modal-price">
+                {product.market_price && product.market_price > product.price && (
+                  <span className="modal-market-price-crossed">${product.market_price.toFixed(2)}</span>
+                )}
                 <span className="modal-price-value">${product.price.toFixed(2)}</span>
               </div>
             </div>

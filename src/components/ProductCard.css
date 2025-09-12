@@ -202,14 +202,21 @@
   margin-top: auto;
 }
 
-.sale-price {
+.market-price-crossed {
+  font-size: 16px;
+  color: #e74c3c; /* Red color for crossed out market price */
+  text-decoration: line-through;
+  font-weight: 500;
+}
+
+.price {
   font-size: 20px;
   font-weight: 800;
-  color: #000;
-  background: linear-gradient(135deg, #000 0%, #333 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #28a745; /* Green color for the current price */
+  /* Removed background gradient which would override the color */
+  -webkit-background-clip: unset; /* Ensure text color is visible */
+  -webkit-text-fill-color: unset; /* Ensure text color is visible */
+  background-clip: unset; /* Ensure text color is visible */
 }
 
 .original-price {

@@ -32,6 +32,7 @@ export interface Database {
           featured: boolean;
           created_at: string;
           updated_at: string;
+          market_price: number | null; // Added market_price field
         };
         Insert: {
           id?: string;
@@ -44,6 +45,7 @@ export interface Database {
           featured?: boolean;
           created_at?: string;
           updated_at?: string;
+          market_price?: number | null; // Added market_price field
         };
         Update: {
           id?: string;
@@ -56,6 +58,7 @@ export interface Database {
           featured?: boolean;
           created_at?: string;
           updated_at?: string;
+          market_price?: number | null; // Added market_price field
         };
       };
     };

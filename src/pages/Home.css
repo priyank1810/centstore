@@ -65,4 +65,12 @@ html {
   width: 100%;
   max-width: 100vw;
   overflow: hidden;
+}
+
+/* Logo Styling */
+.centstore-logo {
+  display: block;
+  margin: 20px auto;
+  max-width: 200px; /* Adjust as needed */
+  height: auto;
 } 
