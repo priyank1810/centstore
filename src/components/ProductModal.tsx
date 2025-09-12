@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, ChevronLeft, ChevronRight, Heart } from 'lucide-react';
 import { Product } from '../services/supabaseProductService'; // Updated import path
+import { Helmet } from '@dr.pogodin/react-helmet';
 import './ProductModal.css';
 
 interface ProductModalProps {
@@ -39,6 +40,28 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, isOpen, onClose })
   }, [isOpen, onClose]);
 
   if (!isOpen || !product) return null;
+
+  const productTitle = `${product.name} - CentStore`;
+  const productDescription = product.description || `Discover premium quality and style with this ${product.category.toLowerCase()} piece. Shop now at CentStore.`;
+  const productUrl = `${window.location.origin}/product/${product.id}`;
+  const imageUrl = product.images[0] || '';
+
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": product.name,
+    "description": productDescription,
+    "sku": product.id, // Using product ID as SKU
+    "image": imageUrl,
+    "offers": {
+      "@type": "Offer",
+      "url": productUrl,
+      "priceCurrency": "USD", // Assuming USD
+      "price": product.price.toFixed(2),
+      "itemCondition": "https://schema.org/NewCondition",
+      "availability": "https://schema.org/InStock" // Assuming products are in stock when displayed
+    }
+  };
 
   const nextImage = () => {
     setCurrentImageIndex((prev) => 
@@ -80,6 +103,26 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, isOpen, onClose })
 
   return (
     <div className="modal-backdrop" onClick={handleBackdropClick}>
+      <Helmet>
+        <title>{productTitle}</title>
+        <meta name="description" content={productDescription} />
+        <link rel="canonical" href={productUrl} />
+        <meta property="og:title" content={productTitle} />
+        <meta property="og:description" content={productDescription} />
+        <meta property="og:image" content={imageUrl} />
+        <meta property="og:url" content={productUrl} />
+        <meta property="og:type" content="product" />
+        <meta property="product:price:amount" content={product.price.toFixed(2)} />
+        <meta property="product:price:currency" content="USD" />
+        {/* Twitter Card Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={productTitle} />
+        <meta name="twitter:description" content={productDescription} />
+        <meta name="twitter:image" content={imageUrl} />
+        <script type="application/ld+json">
+          {JSON.stringify(productSchema)}
+        </script>
+      </Helmet>
       <div className="modal-content">
         <button className="modal-close" onClick={onClose}>
           <X size={24} />

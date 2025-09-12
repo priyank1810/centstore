@@ -4,12 +4,23 @@ import ProductCard from '../components/ProductCard';
 import ProductModal from '../components/ProductModal';
 import { Product } from '../contexts/ProductsContext';
 import { Search, Package } from 'lucide-react';
+import { Helmet } from '@dr.pogodin/react-helmet';
 import './CategoryPage.css';
 
 const SearchResults: React.FC = () => {
   const { searchTerm, searchResults, isSearching, hasSearched } = useSearch();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const pageTitle = searchTerm
+    ? `Search Results for \'${searchTerm}\' - CentStore`
+    : "Search Products - CentStore";
+
+  const metaDescription = searchTerm
+    ? `Browse products matching \'${searchTerm}\' on CentStore. Find ${searchResults.length} items.`
+    : "Search for your favorite fashion, accessories, and more on CentStore.";
+
+  const canonicalUrl = `${window.location.origin}/search?q=${encodeURIComponent(searchTerm || '')}`;
 
   const handleProductClick = (product: Product) => {
     setSelectedProduct(product);
@@ -24,6 +35,11 @@ const SearchResults: React.FC = () => {
   if (isSearching) {
     return (
       <div className="category-page">
+        <Helmet>
+          <title>{pageTitle}</title>
+          <meta name="description" content={metaDescription} />
+          <link rel="canonical" href={canonicalUrl} />
+        </Helmet>
         <div className="container">
           <div className="category-header">
             <h1>Searching...</h1>
@@ -40,6 +56,11 @@ const SearchResults: React.FC = () => {
   if (!hasSearched) {
     return (
       <div className="category-page">
+        <Helmet>
+          <title>{pageTitle}</title>
+          <meta name="description" content={metaDescription} />
+          <link rel="canonical" href={canonicalUrl} />
+        </Helmet>
         <div className="container">
           <div className="category-header">
             <h1>Search Products</h1>
@@ -57,11 +78,16 @@ const SearchResults: React.FC = () => {
 
   return (
     <div className="category-page">
+      <Helmet>
+        <title>{pageTitle}</title>
+        <meta name="description" content={metaDescription} />
+        <link rel="canonical" href={canonicalUrl} />
+      </Helmet>
       <div className="container">
         <div className="category-header">
           <h1>Search Results</h1>
           <p>
-            {searchResults.length > 0 
+            {searchResults.length > 0
               ? `Found ${searchResults.length} product${searchResults.length !== 1 ? 's' : ''} for "${searchTerm}"`
               : `No products found for "${searchTerm}"`
             }
@@ -83,7 +109,7 @@ const SearchResults: React.FC = () => {
             <Package size={64} />
             <h3>No Products Found</h3>
             <p>
-              We couldn't find any products matching "{searchTerm}". 
+              We couldn't find any products matching "{searchTerm}".
               Try searching with different keywords or browse our categories.
             </p>
             <div className="search-suggestions">
