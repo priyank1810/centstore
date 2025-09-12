@@ -150,7 +150,7 @@
 
 /* New logo styling */
 .header-logo {
-  height: 125px; /* Adjusted height to make it bigger */
+  height: 150px; /* Adjusted height to make it bigger */
   width: auto;
   transition: transform 0.3s ease;
 }
