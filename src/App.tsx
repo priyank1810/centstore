@@ -18,6 +18,7 @@ import ContactUs from './pages/ContactUs';
 import SearchResults from './pages/SearchResults';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
+import AccessoryCategoriesPage from './pages/AccessoryCategoriesPage';
 import ScrollToTop from './utils/ScrollToTop'; // Import ScrollToTop
 import './App.css';
 
@@ -39,6 +40,14 @@ function App() {
                       <AdminDashboard />
                     </ProtectedRoute>
                   } 
+                />
+                <Route
+                  path="/admin/accessory-categories"
+                  element={
+                    <ProtectedRoute>
+                      <AccessoryCategoriesPage />
+                    </ProtectedRoute>
+                  }
                 />
                 
                 {/* Public Routes */}

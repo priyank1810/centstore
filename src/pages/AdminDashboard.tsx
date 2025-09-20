@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useProducts, Product } from '../contexts/ProductsContext';
 import { 
@@ -19,6 +20,8 @@ import {
 } from 'lucide-react';
 import ProductForm from '../components/ProductForm';
 import ProductModal from '../components/ProductModal';
+import { SupabaseAccessoryCategoryService } from '../services/supabaseAccessoryCategoryService';
+import AccessoryCategoriesManager from '../components/AccessoryCategoriesManager';
 import './AdminDashboard.css';
 
 const AdminDashboard: React.FC = () => {
@@ -28,12 +31,37 @@ const AdminDashboard: React.FC = () => {
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [viewingProduct, setViewingProduct] = useState<Product | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [accessoryCategories, setAccessoryCategories] = useState<string[]>([]);
+  const [selectedAccessorySubCategory, setSelectedAccessorySubCategory] = useState<string>('All');
+  const [showAccessoryManager, setShowAccessoryManager] = useState<boolean>(false);
 
   const categories = ['All', 'Women', 'Men', 'Kids', 'Bags', 'Accessories', 'Footwear'];
 
-  const filteredProducts = selectedCategory === 'All' 
-    ? products 
-    : products.filter(product => product.category === selectedCategory);
+  useEffect(() => {
+    let mounted = true;
+    const fetch = async () => {
+      try {
+        const cats = await SupabaseAccessoryCategoryService.getAllCategories();
+        if (mounted) setAccessoryCategories(['All', ...cats]);
+      } catch (err) {
+        console.warn('Failed to fetch accessory categories', err);
+      }
+    };
+    fetch();
+    return () => { mounted = false; };
+  }, []);
+
+  let filteredProducts: Product[] = products;
+  if (selectedCategory !== 'All') {
+    if (selectedCategory === 'Accessories') {
+      filteredProducts = products.filter(p => p.category === 'Accessories');
+      if (selectedAccessorySubCategory && selectedAccessorySubCategory !== 'All') {
+        filteredProducts = filteredProducts.filter(p => ((p as any).subCategory || '') === selectedAccessorySubCategory);
+      }
+    } else {
+      filteredProducts = products.filter(product => product.category === selectedCategory);
+    }
+  }
 
   const handleDeleteProduct = async (id: string) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
@@ -152,7 +180,7 @@ const AdminDashboard: React.FC = () => {
               {categories.map(category => (
                 <button
                   key={category}
-                  onClick={() => setSelectedCategory(category)}
+                  onClick={() => { setSelectedCategory(category); setSelectedAccessorySubCategory('All'); }}
                   className={`category-btn ${selectedCategory === category ? 'active' : ''}`}
                 >
                   {category}
@@ -164,6 +192,25 @@ const AdminDashboard: React.FC = () => {
                 </button>
               ))}
             </div>
+
+            {selectedCategory === 'Accessories' && (
+              <div className="accessory-sub-filter">
+                <label htmlFor="admin-sub-filter">Sub-category:</label>
+                <select
+                  id="admin-sub-filter"
+                  value={selectedAccessorySubCategory}
+                  onChange={(e) => setSelectedAccessorySubCategory(e.target.value)}
+                >
+                  {accessoryCategories.map(c => (
+                    <option key={c} value={c}>{c}</option>
+                  ))}
+                </select>
+
+                <Link to="/admin/accessory-categories" className="manage-accessory-cats-btn">
+                  Manage Accessory Categories
+                </Link>
+              </div>
+            )}
           </div>
 
           {/* Products Table */}
@@ -173,6 +220,7 @@ const AdminDashboard: React.FC = () => {
                 <div className="table-cell">Image</div>
                 <div className="table-cell">Product</div>
                 <div className="table-cell">Category</div>
+                <div className="table-cell">Sub-category</div>
                 <div className="table-cell">Price</div>
                 <div className="table-cell">Featured</div>
                 <div className="table-cell">Actions</div>
@@ -196,6 +244,9 @@ const AdminDashboard: React.FC = () => {
                   </div>
                   <div className="table-cell">
                     <span className="category-badge">{product.category}</span>
+                  </div>
+                  <div className="table-cell">
+                    <span className="category-badge">{(product as any).subCategory || '-'}</span>
                   </div>
                   <div className="table-cell">
                     <div className="price-info">
@@ -278,6 +329,12 @@ const AdminDashboard: React.FC = () => {
           isOpen={true}
           onClose={() => setViewingProduct(null)}
         />
+      )}
+
+      {showAccessoryManager && (
+        <div className="accessory-manager-panel">
+          <AccessoryCategoriesManager onClose={() => setShowAccessoryManager(false)} />
+        </div>
       )}
     </div>
   );

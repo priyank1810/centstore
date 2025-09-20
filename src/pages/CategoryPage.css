@@ -196,3 +196,69 @@
     gap: 20px;
   }
 } 
+
+/* Sub-category buttons */
+.subcat-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 20px 0 30px;
+}
+
+.subcat-btn {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  color: #334155;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.subcat-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(16,24,40,0.06);
+}
+
+.subcat-btn.active {
+  background: linear-gradient(135deg, #7c3aed 0%, #3b82f6 100%);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 10px 30px rgba(59,130,246,0.12);
+}
+
+/* Sections for grouped products */
+.subcat-section {
+  margin: 40px 0;
+}
+
+.subcat-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.subcat-header h2 {
+  font-size: 1.5rem;
+  margin: 0;
+  color: #0f172a;
+}
+
+.subcat-count {
+  background: #eef2ff;
+  color: #3730a3;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .subcat-buttons {
+    justify-content: flex-start;
+    padding-left: 10px;
+  }
+} 

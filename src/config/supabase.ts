@@ -33,6 +33,7 @@ export interface Database {
           created_at: string;
           updated_at: string;
           market_price: number | null; // Added market_price field
+          sub_category: string | null; // Added sub_category for accessory categories
         };
         Insert: {
           id?: string;
@@ -46,6 +47,7 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
           market_price?: number | null; // Added market_price field
+          sub_category?: string | null; // Optional accessory sub-category
         };
         Update: {
           id?: string;
@@ -59,6 +61,7 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
           market_price?: number | null; // Added market_price field
+          sub_category?: string | null; // Optional accessory sub-category
         };
       };
     };

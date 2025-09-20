@@ -7,6 +7,7 @@ export interface Product {
   market_price?: number | null; // Added market_price field
   images: string[];
   category: string;
+  subCategory?: string; // Accessory sub-category (optional)
   description?: string;
   inStock?: boolean;
   featured?: boolean;
@@ -22,6 +23,7 @@ const mapRowToProduct = (row: ProductRow): Product => ({
   market_price: row.market_price || null, // Map market_price
   images: row.images || [],
   category: row.category,
+  subCategory: row.sub_category || undefined,
   description: row.description || undefined,
   inStock: row.in_stock,
   featured: row.featured,
@@ -36,6 +38,7 @@ const mapProductToInsert = (product: Omit<Product, 'id' | 'createdAt' | 'updated
   market_price: product.market_price || null, // Map market_price
   images: product.images,
   category: product.category,
+  sub_category: product.subCategory || null,
   description: product.description || null,
   in_stock: product.inStock ?? true,
   featured: product.featured ?? false,
@@ -48,6 +51,7 @@ const mapProductToUpdate = (product: Partial<Product>): ProductUpdate => ({
   ...(product.market_price !== undefined && { market_price: product.market_price || null }), // Map market_price
   ...(product.images && { images: product.images }),
   ...(product.category && { category: product.category }),
+  ...(product.subCategory !== undefined && { sub_category: product.subCategory ?? null }),
   ...(product.description !== undefined && { description: product.description || null }),
   ...(product.inStock !== undefined && { in_stock: product.inStock }),
   ...(product.featured !== undefined && { featured: product.featured }),
@@ -342,6 +346,27 @@ export class SupabaseProductService {
       };
     } catch (error) {
       console.error('Error in getProductsPaginated:', error);
+      throw error;
+    }
+  }
+
+  // Get products by sub-category (useful for accessory categories)
+  static async getProductsBySubCategory(subCategory: string): Promise<Product[]> {
+    try {
+      const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .eq('sub_category', subCategory)
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Error fetching products by sub-category:', error);
+        throw new Error(`Failed to fetch products by sub-category: ${error.message}`);
+      }
+
+      return data?.map(mapRowToProduct) || [];
+    } catch (error) {
+      console.error('Error in getProductsBySubCategory:', error);
       throw error;
     }
   }

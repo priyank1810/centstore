@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Trash2, Upload, GripVertical } from 'lucide-react';
 import { useProducts, Product } from '../contexts/ProductsContext';
+import { SupabaseAccessoryCategoryService } from '../services/supabaseAccessoryCategoryService';
 import { SupabaseStorageService, UploadProgress } from '../services/supabaseStorageService';
 import './ProductForm.css';
 
@@ -26,6 +27,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onClose, onSave }) =
     category: 'Women',
     price: '',
     market_price: '', // Added market_price field
+    sub_category: '', // Accessory sub-category (optional)
     description: '',
     featured: false
   });
@@ -44,6 +46,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onClose, onSave }) =
       setFormData({
         name: product.name,
         category: product.category,
+        sub_category: (product as any).subCategory || '',
         price: product.price.toString(),
         market_price: product.market_price ? product.market_price.toString() : '', // Initialize market_price
         description: product.description || '',
@@ -62,6 +65,27 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onClose, onSave }) =
       }
     }
   }, [product]);
+
+  // Load accessory categories when form mounts
+  const [accessoryCategories, setAccessoryCategories] = useState<string[]>([]);
+  useEffect(() => {
+    let mounted = true;
+    const fetchCategories = async () => {
+      try {
+        const cats = await SupabaseAccessoryCategoryService.getAllCategories();
+        if (mounted) {
+          // Ensure current product's subCategory is available in the select
+          const currentSub = (product as any)?.subCategory;
+          const merged = Array.from(new Set([...(cats || []), ...(currentSub ? [currentSub] : [])]));
+          setAccessoryCategories(merged);
+        }
+      } catch (err) {
+        console.warn('Could not load accessory categories', err);
+      }
+    };
+    fetchCategories();
+    return () => { mounted = false; };
+  }, []);
 
   // Handle Escape key and prevent body scroll
   useEffect(() => {
@@ -285,6 +309,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onClose, onSave }) =
       const productData = {
         name: formData.name.trim(),
         category: formData.category,
+        subCategory: (formData as any).sub_category || null,
         price,
         market_price, // Include market_price
         description: formData.description.trim(),
@@ -372,6 +397,24 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onClose, onSave }) =
                 </select>
                 {errors.category && <span className="error-message">{errors.category}</span>}
               </div>
+            </div>
+            <div className="form-group">
+              <label htmlFor="sub_category">Accessory Category</label>
+              <select
+                id="sub_category"
+                name="sub_category"
+                value={(formData as any).sub_category}
+                onChange={handleInputChange}
+                disabled={formData.category !== 'Accessories'}
+              >
+                <option value="">All</option>
+                {accessoryCategories.map(cat => (
+                  <option key={cat} value={cat}>{cat}</option>
+                ))}
+              </select>
+              {formData.category !== 'Accessories' && (
+                <p className="field-description">Select <strong>Accessories</strong> as the category to enable this field.</p>
+              )}
             </div>
 
             <div className="form-row">
