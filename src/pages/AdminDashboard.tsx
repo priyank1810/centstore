@@ -36,6 +36,12 @@ const AdminDashboard: React.FC = () => {
   const [showAccessoryManager, setShowAccessoryManager] = useState<boolean>(false);
 
   const categories = ['All', 'Women', 'Men', 'Kids', 'Bags', 'Accessories', 'Footwear'];
+  // Add new top-level categories
+  // Note: keep this list in sync with ProductForm select values
+  // and CategoryShowcase entries
+  // Insert Healthcare and Cosmetics
+  const enhancedCategories = Array.from(new Set([...categories, 'Healthcare', 'Cosmetics']));
+  // Use enhancedCategories where categories array was used below
 
   useEffect(() => {
     let mounted = true;
@@ -177,7 +183,7 @@ const AdminDashboard: React.FC = () => {
               <span>Filter by Category</span>
             </div>
             <div className="category-buttons">
-              {categories.map(category => (
+              {enhancedCategories.map(category => (
                 <button
                   key={category}
                   onClick={() => { setSelectedCategory(category); setSelectedAccessorySubCategory('All'); }}

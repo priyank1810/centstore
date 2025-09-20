@@ -13,6 +13,8 @@ import Kids from './pages/Kids';
 import Bags from './pages/Bags';
 import Accessories from './pages/Accessories';
 import Footwear from './pages/Footwear';
+import Healthcare from './pages/Healthcare';
+import Cosmetics from './pages/Cosmetics';
 import Locations from './pages/Locations';
 import ContactUs from './pages/ContactUs';
 import SearchResults from './pages/SearchResults';
@@ -61,6 +63,8 @@ function App() {
                       <Route path="/kids" element={<Kids />} />
                       <Route path="/bags" element={<Bags />} />
                       <Route path="/accessories" element={<Accessories />} />
+                      <Route path="/healthcare" element={<Healthcare />} />
+                      <Route path="/cosmetics" element={<Cosmetics />} />
                       <Route path="/footwear" element={<Footwear />} />
                       <Route path="/locations" element={<Locations />} />
                       <Route path="/contact" element={<ContactUs />} />

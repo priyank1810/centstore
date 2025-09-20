@@ -142,6 +142,7 @@
 .logo {
   text-decoration: none;
   transition: transform 0.3s ease;
+  margin-left: -50px; /* nudge logo slightly left */
 }
 
 .logo:hover {
@@ -224,6 +225,7 @@
   display: flex;
   gap: 4px;
   align-items: center;
+  margin-right: -50px; /* nudge header action buttons slightly right */
 }
 
 .action-btn {
