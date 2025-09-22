@@ -3,7 +3,20 @@ import { MapPin, Phone, Mail, Globe } from 'lucide-react';
 import './Locations.css';
 
 const Locations: React.FC = () => {
-  const offices = [
+  interface Office {
+    country: string;
+    title: string;
+    address: string;
+    contact?: string;
+    phone?: string;
+    phone2?: string;
+    whatsapp?: string;
+    email?: string;
+    identificationNumber?: string;
+    legalForm?: string;
+    type?: string;
+  }
+  const offices: Office[] = [
     {
       country: 'INDIA',
       title: 'SHRADDHA MEDICINES',
@@ -39,20 +52,17 @@ const Locations: React.FC = () => {
     },
     {
       country: 'USA',
-      title: 'KARADA LLC USA',
-      address: '8TH GREEN SUITE, A DOVER, DE 19901',
-      phone: '+1(302) 273-5762',
-      phone2: '+1(302) 203-9413',
-      email: 'info@karadallcusa.com',
+      title: 'CENT STORE LLC',
+      address: '2109 Dabney RD\n\nRichmond, VA 23230',
+      phone: '5023450389',
       type: 'green'
     },
     {
       country: 'EUROPE',
-      title: 'Al Arab Trading Company',
-      address: 'Warsaw, Mazowieckie, Poland',
-      email: 'jakub@karadapharma.com',
-      contact: 'Mr. Jakub',
-      phone: '+48 730 030 047',
+      title: 'FADHIL, s.r.o.',
+      address: 'Vyšehradská 8\nBratislava - mestská časť Petržalka 851 06',
+      identificationNumber: '47 191 198',
+      legalForm: 'Private limited liability company',
       type: 'green'
     }
   ];
@@ -101,6 +111,20 @@ const Locations: React.FC = () => {
                     <div className="detail-item">
                       <span className="contact-label">Contact:</span>
                       <span className="contact-name">{office.contact}</span>
+                    </div>
+                  )}
+
+                  {office.identificationNumber && (
+                    <div className="detail-item">
+                      <span className="contact-label">Identification number (IČO):</span>
+                      <span className="contact-name">{office.identificationNumber}</span>
+                    </div>
+                  )}
+
+                  {office.legalForm && (
+                    <div className="detail-item">
+                      <span className="contact-label">Legal form:</span>
+                      <span className="contact-name">{office.legalForm}</span>
                     </div>
                   )}
 

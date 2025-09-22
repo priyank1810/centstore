@@ -92,9 +92,9 @@ const Accessories: React.FC = () => {
           // Render grouped sections
           <div className="accessory-sections">
             {Object.keys(productsBySubCategory).length === 0 && (
-              <div className="empty-state">
-                <h3>No Accessories Available</h3>
-                <p>We're working on adding new accessories to our collection. Check back soon!</p>
+          <div className="empty-state">
+            <h3>No Accessories Available</h3>
+            <p>We're working on adding new accessories to our collection. Check back soon!</p>
               </div>
             )}
 

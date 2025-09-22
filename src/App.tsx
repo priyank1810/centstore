@@ -49,7 +49,7 @@ function App() {
                     <ProtectedRoute>
                       <AccessoryCategoriesPage />
                     </ProtectedRoute>
-                  }
+                  } 
                 />
                 
                 {/* Public Routes */}
